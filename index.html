@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>PCC Ticketing System</title>
+<link rel="icon" href="logo.jpg">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css"></head><body>
+<div class="lg" id="lg"><form class="card" id="lf"><div style="display:flex;gap:10px;align-items:center"><img class="logo" src="logo.jpg" width="40" height="40" alt="Pasig Catholic College seal"><div><h1>PCC Ticketing System</h1></div></div><p class="sub" style="margin:0">Sign in to manage your IT support requests.</p><div><label for="le">Email</label><input id="le" type="email" autocomplete="username"></div><div><label for="lp">Password</label><input id="lp" type="password" autocomplete="current-password"></div><div class="err" id="le2" role="alert"></div><button class="btn p" type="submit">Sign in</button><p class="hint">Demo user: maria.santos@pcc.edu / user123<br>Demo admin: admin@pcc.edu / admin123</p></form></div>
+<div class="app">
+<aside>
+ <div class="brand"><img class="logo" src="logo.jpg" width="52" height="52" alt="Pasig Catholic College seal"><div>PCC Ticketing<small>IT Help Desk</small></div></div>
+ <a data-go="dash" class="on"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="9"/><rect x="14" y="3" width="7" height="5"/><rect x="14" y="12" width="7" height="9"/><rect x="3" y="16" width="7" height="5"/></svg><span>Dashboard</span></a>
+ <a data-go="all" data-mine="1" data-user><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4 4-6 8-6s8 2 8 6"/></svg><span>My Tickets</span></a>
+ <a data-go="all" data-admin><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 6h18M3 12h18M3 18h18"/></svg><span>All Tickets</span></a>
+ <a data-go="new" data-user><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M12 8v8M8 12h8"/></svg><span>Create Ticket</span></a>
+ <a data-go="inbox" data-admin><b style="width:18px;text-align:center;flex:none">📥</b><span>Inbox</span><em class="cnt" id="uc">0</em></a>
+ <a data-go="tech" data-admin><b style="width:18px;text-align:center;flex:none">👥</b><span>Technicians</span></a>
+ <a data-go="rep" data-admin><b style="width:18px;text-align:center;flex:none">📊</b><span>Reports</span></a>
+ <a data-go="set" data-user><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3M5 5l2 2M17 17l2 2M5 19l2-2M17 7l2-2"/></svg><span>Settings</span></a>
+</aside>
+<main>
+<header>
+ <div class="s"><input id="gs" placeholder="Search tickets" aria-label="Search tickets"></div>
+ <span style="flex:1"></span>
+ <button class="ib" data-toast="You have 3 new notifications." aria-label="Notifications">🔔<i class="dot"></i></button>
+ <button class="ib" id="tg" aria-label="Toggle dark mode">🌙</button>
+ <span class="role" id="rl"></span><div class="av" id="av"></div><button class="btn sm" id="lo">Sign out</button>
+</header>
+
+<section class="pg on" id="dash">
+ <h1>Welcome to PCC Ticketing System</h1><p class="sub">Manage your IT support requests in one place.</p>
+ <div class="g4">
+  <div class="card stat"><div class="ic">📂</div><div><b id="n1">24</b><span>Open Tickets</span></div></div>
+  <div class="card stat"><div class="ic">⏳</div><div><b id="n2">11</b><span>Pending Tickets</span></div></div>
+  <div class="card stat"><div class="ic">✅</div><div><b id="n3">9</b><span>Resolved Today</span></div></div>
+  <div class="card stat"><div class="ic">🚨</div><div><b id="n4">3</b><span>Urgent Tickets</span></div></div>
+ </div>
+ <div class="row2">
+  <div class="card"><h2>Recent Tickets</h2><div class="tw"><table id="rt"></table></div></div>
+  <div style="display:grid;gap:16px;align-content:start">
+   <div class="card"><h2>Ticket activity (this week)</h2><div class="bars" role="img" aria-label="Tickets per weekday: 14, 22, 18, 26, 12"><div style="height:54%"><i>Mon</i></div><div style="height:85%"><i>Tue</i></div><div style="height:70%"><i>Wed</i></div><div style="height:100%"><i>Thu</i></div><div style="height:46%"><i>Fri</i></div></div><div style="height:16px"></div></div>
+   <div class="card" data-user><h2>Need help?</h2><p style="margin:0 0 12px;color:var(--mute)">Tickets you submit appear here. A technician will reply by email.</p><button class="btn p" data-go="new">Create Ticket</button></div><div class="card" data-admin><h2>Needs Attention</h2><div class="na" id="na"></div></div>
+  </div>
+ </div>
+</section>
+
+<section class="pg" id="adash">
+ <h1>Admin Console</h1><p class="sub">Answer support requests, watch deadlines, and balance the team’s workload.</p>
+ <div class="g4">
+  <div class="card stat"><div class="ic">📥</div><div><b id="a1">0</b><span>Unanswered</span></div></div>
+  <div class="card stat"><div class="ic">✅</div><div><b id="a2">0</b><span>Answered</span></div></div>
+  <div class="card stat"><div class="ic">⏱</div><div><b id="a3">0</b><span>SLA at risk</span></div></div>
+  <div class="card stat"><div class="ic">💬</div><div><b>1h 12m</b><span>Avg first reply</span></div></div>
+ </div>
+ <div class="row2"><div class="card"><h2>Waiting for a reply</h2><div class="ml" id="ua"></div></div>
+  <div class="card"><h2>Needs Attention</h2><div class="na" id="na2"></div></div></div>
+</section>
+
+<section class="pg" id="inbox">
+ <h1>Inbox</h1><p class="sub">Every support email, answered or not. Replies appear on the requester’s ticket.</p>
+ <div class="ib2"><div class="card"><div class="tabs" id="tb"><button class="on" data-f="all">All</button><button data-f="un">Unanswered</button><button data-f="an">Answered</button></div><div class="ml" id="ml"></div></div><div class="card" id="th"></div></div>
+</section>
+
+<section class="pg" id="tech"><h1>Technicians</h1><p class="sub">See who is handling what and spread the work evenly.</p><div class="g4" id="tc"></div></section>
+
+<section class="pg" id="rep"><h1>Reports</h1><p class="sub">How the help desk is performing.</p><div class="row2"><div class="card"><h2>Tickets by category</h2><div id="rc"></div></div><div class="card"><h2>SLA status</h2><div id="rs"></div></div></div></section>
+
+<section class="pg" id="new">
+ <h1>Create New Ticket</h1><p class="sub">Describe the problem and we’ll route it to the right technician.</p>
+ <div class="form">
+  <div class="card"><div class="f">
+   <div class="w"><label for="sj">Ticket subject</label><input id="sj" placeholder="e.g. Wi-Fi drops in Room 204"></div>
+   <div class="w"><label for="ds">Issue description</label><textarea id="ds" rows="5" placeholder="What happened, and when did it start?"></textarea></div>
+   <div><label for="ct">Category</label><select id="ct"><option>Hardware</option><option>Software</option><option>Network</option><option>Account Access</option></select></div>
+   <div><label for="dv">Affected device</label><input id="dv" placeholder="e.g. Lab PC-14"></div>
+   <div><label for="im">Impact</label><select id="im"><option value="1">Individual</option><option value="2">Multiple Users</option><option value="3">Department</option><option value="4">Company-Wide</option></select></div>
+   <div><label for="ur">Urgency</label><select id="ur"><option value="1">Low</option><option value="2" selected>Normal</option><option value="3">High</option><option value="4">Critical</option></select></div>
+   <div class="w"><label>Attachments</label><div class="dz" id="dz">Drag and drop files here, or click to browse<input type="file" id="fi" multiple hidden></div><div id="fl"></div></div>
+  </div>
+  <div class="acts"><button class="btn" data-go="dash">Cancel</button><button class="btn" id="dr">Save as Draft</button><button class="btn p" id="sb">Submit Ticket</button></div></div>
+  <div style="display:grid;gap:16px">
+   <div class="card"><h2>Smart Priority Preview</h2><div class="pr" id="pr"></div><p id="px" style="margin:10px 0 0;color:var(--mute)"></p></div>
+   <div class="card sol"><h2>Related Solutions</h2><a data-toast="Opening article (mock)">Fix slow or dropping Wi-Fi on campus</a><a data-toast="Opening article (mock)">Reset your PCC account password</a><a data-toast="Opening article (mock)">Troubleshoot a printer that won’t print</a></div>
+  </div>
+ </div>
+</section>
+
+<section class="pg" id="all">
+ <h1 id="at">All Tickets</h1><p class="sub">Search, filter, and update support requests.</p>
+ <div class="card"><div class="fl">
+  <input id="q" placeholder="Search by ID or subject" aria-label="Search">
+  <select id="fs"><option value="">All statuses</option><option>Open</option><option>In Progress</option><option>Pending</option><option>Resolved</option><option>Closed</option></select>
+  <select id="fc"><option value="">All categories</option><option>Hardware</option><option>Software</option><option>Network</option><option>Account Access</option></select>
+  <select id="fp"><option value="">All priorities</option><option>Low</option><option>Medium</option><option>High</option><option>Critical</option></select>
+ </div><div class="tw"><table id="at2"></table></div></div>
+</section>
+
+<section class="pg" id="det">
+ <button class="btn sm" data-go="all">← All Tickets</button>
+ <div id="dt" style="margin-top:14px"></div>
+</section>
+
+<section class="pg" id="set">
+ <h1>Settings</h1><p class="sub">Personal preferences for your account.</p>
+ <div class="card" style="max-width:520px;display:grid;gap:14px">
+  <div><label>Display name</label><input value="Maria Santos"></div>
+  <div><label>Email</label><input value="m.santos@pcc.edu"></div>
+  <div><label><input type="checkbox" checked style="width:auto"> Email me when a ticket changes</label></div>
+  <div><label><input type="checkbox" id="sd" style="width:auto"> Use dark mode</label></div>
+  <div><button class="btn p" data-toast="Settings saved.">Save changes</button></div>
+ </div>
+</section>
+</main></div>
+
+<div class="modal" id="md"><div class="card"><h2 id="mt"></h2><div id="mb"></div><div class="acts"><button class="btn" id="mc">Cancel</button><button class="btn p" id="mo">Confirm</button></div></div></div>
+<div class="toast" id="ts" role="status"></div>
+
+<script src="script.js"></script></body></html>
